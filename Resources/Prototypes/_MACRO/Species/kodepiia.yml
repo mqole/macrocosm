@@ -1,0 +1,12 @@
+﻿- type: species
+  id: Kodepiia
+  name: species-name-kodepiia
+  roundStart: true
+  prototype: MobKodepiia
+  dollPrototype: MobKodepiiaDummy
+  skinColoration: Hues
+  maleFirstNames: KodepiiaFirst
+  femaleFirstNames: KodepiiaFirst
+  lastNames: KodepiiaLast
+  sexes:
+  - Unsexed
