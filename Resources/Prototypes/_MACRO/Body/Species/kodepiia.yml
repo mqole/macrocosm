@@ -1,7 +1,7 @@
 - type: markingsGroup
   parent: Undergarments
   id: Kodepiia
-  onlyWhitelisted: true
+  onlyGroupWhitelisted: true
   limits:
     enum.HumanoidVisualLayers.Hair:
       limit: 1
@@ -18,10 +18,10 @@
     enum.HumanoidVisualLayers.Chest:
       limit: 4
       required: false
-    Legs:
+    Legs: # TODO
       limit: 8
       required: false
-    Arms:
+    Arms: # TODO
       limit: 1
       required: true
       default: [ KodeWingsBlade ]
@@ -49,242 +49,139 @@
     organs:
       Torso: OrganKodepiiaTorso
       Head: OrganKodepiiaHead
-      ArmLeft: OrganKodepiia
+      ArmLeft: OrganKodepiiaArmLeft
+      ArmRight: OrganKodepiiaArmRight
+      HandRight: OrganKodepiiaHandRight
+      HandLeft: OrganKodepiiaHandLeft
+      LegLeft: OrganKodepiiaLegLeft
+      LegRight: OrganKodepiiaLegRight
+      FootLeft: OrganKodepiiaFootLeft
+      FootRight: OrganKodepiiaFootRight
+      Brain: OrganKodepiiaBrain
+      Eyes: OrganKodepiiaEyes
+      Skin: OrganKodepiiaSkin # TODO: CHECK THIS
+      Lungs: OrganKodepiiaLungs
+      Stomach: OrganKodepiiaStomach
+      Heart: OrganKodepiiaHeart
+  - type: HumanoidProfile
+    species: Kodepiia
 
 - type: entity
-  save: false
-  name: Urist McSquid
-  parent: BaseMobSpeciesOrganic
+  parent:
+  - AppearanceKodepiia
+  - BaseMobSpeciesOrganic
   id: MobKodepiiaBase
+  name: Urist McSquid
   abstract: true
   components:
-  - type: HarpySinger
-  - type: KodepiiaScrambler
-  - type: ConsumeAction
-    popupSelfStart: kodepiia-consume-start-self
-    popupSelfEnd: kodepiia-consume-end-self
-    popupOthersStart: kodepiia-consume-start-others
-    popupOthersEnd: kodepiia-consume-end-self
-    consumeActionId: ActionKodepiiaConsume
-    damage:
-      groups:
-        Genetic: 15
-      types:
-        Piercing: 15
-    whitelist:
-      components:
-      - Respirator
-      - Bloodstream
-    blacklist:
-      components:
-      - SiliconLawBound
-    percentageConsumed: 0.25
-  - type: Instrument
-    allowPercussion: false
-    program: 52
-  - type: SwappableInstrument
-    instrumentList:
-      "Voice": {52: 0}
-      "Trumpet": {56: 0}
-      "Electric": {27: 0}
-      "Bass": {33: 0}
-      "Rock": {29: 0}
-      "Acoustic": {24: 0}
-      "Flute": {73: 0}
-      "Sax": {66: 0}
-      "Piano": {1: 0}
-      "Church Organ": {19: 0}
-      "Harp": {46: 0}
-    onlySetBySelf: true
-  - type: UserInterface
-    interfaces:
-      enum.InstrumentUiKey.Key:
-        type: InstrumentBoundUserInterface
-      enum.HumanoidMarkingModifierKey.Key:
-        type: HumanoidMarkingModifierBoundUserInterface
-      enum.StrippingUiKey.Key:
-        type: StrippableBoundUserInterface
-      enum.StoreUiKey.Key:
-        type: StoreBoundUserInterface
-  - type: Sprite
-    layers:
-    - map: [ "enum.HumanoidVisualLayers.TailBehind" ]
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "underpants" ]
-    - map: [ "undershirt" ]
-    - map: [ "socks" ]
-    - map: [ "jumpsuit" ]
-    - map: ["enum.HumanoidVisualLayers.LFoot"]
-    - map: ["enum.HumanoidVisualLayers.RFoot"]
-    - map: ["enum.HumanoidVisualLayers.LHand"]
-    - map: ["enum.HumanoidVisualLayers.RHand"]
-    - map: [ "enum.HumanoidVisualLayers.Handcuffs" ]
-      color: "#ffffff"
-      sprite: Objects/Misc/handcuffs.rsi
-      state: body-overlay-2
-      visible: false
-    - map: [ "id" ]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "outerClothing" ]
-    - map: [ "eyes" ]
-    - map: [ "belt" ]
-    - map: [ "back" ]
-    - map: [ "neck" ]
-    - map: [ "enum.HumanoidVisualLayers.SnoutCover" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
-    - map: [ "clownedon" ] # Dynamically generated
-      sprite: "Effects/creampie.rsi"
-      state: "creampie_human"
-      visible: false
-    - map: [ "enum.HumanoidVisualLayers.RArmExtension" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "enum.HumanoidVisualLayers.TailOversuit" ] # subject to change, really finicky with the arms im afraid
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
-    - map: [ enum.InstrumentVisuals.Layer ]
-      sprite: _DV/Effects/harpysinger.rsi
-      state: singing_music_notes
-      visible: false
-  - type: HumanoidAppearance
-    species: Kodepiia
-    hideLayersOnEquip:
-    - HeadTop
-    - HeadSide
-    - Hair
-    - RArmExtension
-    - Tail
-  - type: Thirst
-  - type: Hunger
-    baseDecayRate: 0.15 # 10x default. 6 minutes to hungry and 15.5 minutes to starving
-  - type: Fixtures
-    fixtures: # TODO: This needs a second fixture just for mob collisions.
-      fix1:
-        shape:
-          !type:PhysShapeCircle
-          radius: 0.35
-        density: 175
-        restitution: 0.0
-        mask:
-        - MobMask
-        layer:
-        - MobLayer
-  - type: Body
-    prototype: Kodepiia
-  - type: Bloodstream
-    bloodReferenceSolution:
-      reagents:
-      - ReagentId: BloodKodepiia
-        Quantity: 300
-  - type: Damageable
-    damageModifierSet: Kodepiia
-  - type: MeleeWeapon
-    angle: 0
-    animation: WeaponArcPunch
-    soundHit:
-      collection: BoxingHit #maybe change this
-    damage:
-      types:
-        Blunt: 5
-  - type: TypingIndicator
-    proto: kodepiia
-  - type: Speech
-    speechSounds: Kodepiia
-    speechVerb: Kodepiia
-    allowedEmotes: ['Hiss', 'Snarl', 'KodeHonk', 'KodeRing', 'KodePew', 'KodeBang', 'KodeBeep', 'KodeRev', 'Caw', 'Squish', 'Chitter', 'Squeak', 'Click', 'Squish', 'Coo', 'Boom', 'Chirp', 'Bubble', 'Pop'] # my extremely normal beast
-  - type: Vocal
-    sounds:
-      Male: Kodepiia
-      Female: Kodepiia
-      Unsexed: Kodepiia
-  - type: InstrumentVisuals
-  - type: GenericVisualizer
-    visuals:
-      enum.InstrumentVisuals.Playing:
-        enum.InstrumentVisuals.Layer:
-          False: {visible: false}
-          True: {visible: true}
-  - type: Butcherable
-    butcheringType: Spike
-    spawned:
-    - id: FoodMeatKodepiia
-      amount: 5
 
 - type: entity
-  save: false
-  name: Urist McSquid
-  parent: MobHumanDummy
-  id: MobKodepiiaDummy
-  categories: [ HideSpawnMenu ]
-  description: A dummy Kodepiia meant to be used in character setup.
+  parent: OrganBase
+  id: OrganKodepiia
+  abstract: true
+  suffix: Kodepiia
+
+- type: entity
+  id: OrganKodepiiaMetabolizer
+  abstract: true
   components:
-  - type: HumanoidAppearance
-    species: Kodepiia
-  - type: Inventory
-    speciesId: kodepiia
-    displacements:
-      jumpsuit:
-        sizeMaps:
-          32:
-            sprite: _Impstation/Mobs/Species/Kodepiia/displacement.rsi
-            state: jumpsuit
-      gloves:
-        sizeMaps:
-          32:
-            sprite: _Impstation/Mobs/Species/Kodepiia/displacement.rsi
-            state: hands
-    femaleDisplacements: {}
+  - type: Metabolizer
+    metabolizerTypes: [ Kodepiia ]
+
+- type: entity
+  parent: OrganKodepiia
+  id: OrganKodepiiaInternal
+  abstract: true
+  components:
   - type: Sprite
-    layers:
-    - map: [ "enum.HumanoidVisualLayers.Chest" ]
-    - map: [ "enum.HumanoidVisualLayers.Head" ]
-    - map: [ "enum.HumanoidVisualLayers.Snout" ]
-    - map: [ "enum.HumanoidVisualLayers.Eyes" ]
-    - map: [ "enum.HumanoidVisualLayers.RArm" ]
-    - map: [ "enum.HumanoidVisualLayers.LArm" ]
-    - map: [ "enum.HumanoidVisualLayers.RLeg" ]
-    - map: [ "enum.HumanoidVisualLayers.LLeg" ]
-    - map: [ "underpants" ]
-    - map: [ "undershirt" ]
-    - map: [ "socks" ]
-    - map: [ "jumpsuit" ]
-    - map: ["enum.HumanoidVisualLayers.LFoot"]
-    - map: ["enum.HumanoidVisualLayers.RFoot"]
-    - map: ["enum.HumanoidVisualLayers.LHand"]
-    - map: ["enum.HumanoidVisualLayers.RHand"]
-    - map: [ "id" ]
-    - map: [ "gloves" ]
-    - map: [ "shoes" ]
-    - map: [ "ears" ]
-    - map: [ "outerClothing" ]
-    - map: [ "eyes" ]
-    - map: [ "belt" ]
-    - map: [ "back" ]
-    - map: [ "neck" ]
-    - map: [ "enum.HumanoidVisualLayers.FacialHair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadSide" ]
-    - map: [ "pocket1" ]
-    - map: [ "pocket2" ]
-    - map: [ "clownedon" ]
-      sprite: "Effects/creampie.rsi"
-      state: "creampie_human"
-      visible: false
-    - map: [ "enum.HumanoidVisualLayers.RArmExtension" ]
-    - map: [ "enum.HumanoidVisualLayers.Tail" ]
-    - map: [ "enum.HumanoidVisualLayers.Hair" ]
-    - map: [ "enum.HumanoidVisualLayers.HeadTop" ]
-    - map: [ "mask" ]
-    - map: [ "head" ]
+    sprite: _MACRO/Mobs/Species/Kodepiia/organs.rsi
+
+- type: entity
+  parent: OrganKodepiia
+  id: OrganKodepiiaExternal
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _MACRO/Mobs/Species/Kodepiia/parts.rsi
+  - type: VisualOrgan
+    data:
+      sprite: _MACRO/Mobs/Species/Kodepiia/parts.rsi
+  - type: VisualOrganMarkings
+    markingData:
+      group: Kodepiia
+
+- type: entity
+  parent: [ OrganBaseTorso, OrganKodepiiaExternal ]
+  id: OrganKodepiiaTorso
+
+- type: entity
+  parent: [ OrganBaseHead, OrganKodepiiaExternal ]
+  id: OrganKodepiiaHead
+
+- type: entity
+  parent: [ OrganBaseArmLeft, OrganKodepiiaExternal ]
+  id: OrganKodepiiaArmLeft
+
+- type: entity
+  parent: [ OrganBaseArmRight, OrganKodepiiaExternal ]
+  id: OrganKodepiiaArmRight
+
+- type: entity
+  parent: [ OrganBaseHandLeft, OrganKodepiiaExternal ]
+  id: OrganKodepiiaHandLeft
+
+- type: entity
+  parent: [ OrganBaseHandRight, OrganKodepiiaExternal ]
+  id: OrganKodepiiaHandRight
+
+- type: entity
+  parent: [ OrganBaseLegLeft, OrganKodepiiaExternal ]
+  id: OrganKodepiiaLegLeft
+
+- type: entity
+  parent: [ OrganBaseLegRight, OrganKodepiiaExternal ]
+  id: OrganKodepiiaLegRight
+
+- type: entity
+  parent: [ OrganBaseFootLeft, OrganKodepiiaExternal ]
+  id: OrganKodepiiaFootLeft
+
+- type: entity
+  parent: [ OrganBaseFootRight, OrganKodepiiaExternal ]
+  id: OrganKodepiiaFootRight
+
+- type: entity
+  parent: [ OrganBaseBrain, OrganKodepiiaInternal ]
+  id: OrganKodepiiaBrain
+  name: bille áu sac
+  description: "Allegedly still functioning."
+
+- type: entity
+  parent: [ OrganBaseEyes, OrganKodepiiaInternal ]
+  id: OrganKodepiiaEyes
+  name: opticullis
+  description: "The scavenger's kaleidoscope."
+
+- type: entity
+  parent: [ OrganBaseSkin, OrganKodepiiaInternal ] # TODO: FIX
+  id: OrganKodepiiaSkin
+  name: slough
+  description: "Something that used to be skin."
+
+- type: entity
+  parent: [ OrganBaseLungs, OrganKodepiiaInternal ]
+  id: OrganKodepiiaLungs
+  name: fine coil
+  description: "Like lungs, but stretchier...?"
+
+- type: entity
+  parent: [ OrganBaseStomach, OrganKodepiiaInternal ]
+  id: OrganKodepiiaStomach
+  name: primary gullet
+  description: "Leaky."
+
+- type: entity
+  parent: [ OrganBaseHeart, OrganKodepiiaInternal ]
+  id: OrganKodepiiaHeart
+  name: COAT
+  description: "Allegedly 'quirked up' with 'the sauce,' if rumors are to be believed."
