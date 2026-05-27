@@ -1,0 +1,20 @@
+- type: entity
+  abstract: true
+  id: BaseDeck
+  components:
+  - type: CardStack
+    deck: TippyTrumps
+
+- type: entity
+  abstract: true
+  id: TippyTrumps
+  components:
+  - type: CardDeck
+  - type: EntityTableContainerFill
+
+- type: entity
+  abstract: true
+  parent: BaseItem
+  id: BaseCard
+  components:
+  - type: Card
