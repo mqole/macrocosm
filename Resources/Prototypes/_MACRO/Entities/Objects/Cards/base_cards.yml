@@ -3,7 +3,7 @@
   id: BaseDeck
   components:
   - type: CardStack
-    deck: TippyTrumps
+    startingDeck: TippyTrumps
 
 - type: entity
   abstract: true

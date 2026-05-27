@@ -16,7 +16,7 @@ public sealed partial class CardSystem : EntitySystem
     VERB INTERACTIONS
     hand
     z = open radial menu to see individual cards
-    alt = flip hand
+    alt = shuffle
     click on card = form new deck with this hand on top
     click on hand = add this hand to top of clicked hand
     click on deck = add this hand to top of deck

@@ -31,5 +31,21 @@ public sealed partial class CardStackComponent : Component
     ///     Used to define in YML the cards this should start stacked with.
     /// </summary>
     [DataField]
-    public EntProtoId<CardDeckComponent>? Deck;
+    public EntProtoId<CardDeckComponent>? StartingDeck;
+
+    public LocId HandOpenText = "card-hand-open-text";
+
+    public LocId HandShuffleText = "card-hand-shuffle-text";
+    public LocId HandShuffleMessage = "card-hand-shuffle-message";
+
+    public LocId DeckDrawText = "card-deck-draw-text";
+    public LocId DeckDrawMessage = "card-deck-draw-message";
+
+    public LocId DeckShuffleText = "card-deck-shuffle-text";
+    public LocId DeckShuffleMessage = "card-deck-shuffle-message";
+
+    public LocId DeckToHandText = "card-deck-convert-text";
+    public LocId DeckToHandMessage = "card-deck-convert-message";
+    public LocId HandToDeckText = "card-hand-convert-text";
+    public LocId HandToDeckMessage = "card-hand-convert-message";
 }

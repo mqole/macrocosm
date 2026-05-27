@@ -36,11 +36,25 @@ public sealed partial class CardSystem : EntitySystem
 
     private void OnCardAltVerb(Entity<CardComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
+        if (!args.CanInteract || !args.CanAccess)
+            return;
 
+        var verb = new AlternativeVerb
+        {
+            Text = Loc.GetString(ent.Comp.AltVerbText),
+            Act = () => FlipCard(ent),
+        };
+
+        args.Verbs.Add(verb);
     }
 
     private void OnCardExamine(Entity<CardComponent> ent, ref ExaminedEvent args)
     {
 
+    }
+
+    private void FlipCard(Entity<CardComponent> ent)
+    {
+        ent.Comp.FaceVisible = !ent.Comp.FaceVisible;
     }
 }

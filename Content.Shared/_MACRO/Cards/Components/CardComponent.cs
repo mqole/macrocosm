@@ -13,4 +13,6 @@ public sealed partial class CardComponent : Component
 {
     [DataField, AutoNetworkedField]
     public bool FaceVisible;
+
+    public LocId AltVerbText = "card-single-flip-text";
 }
