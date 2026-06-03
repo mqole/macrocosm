@@ -15,3 +15,10 @@ card-hand-convert-text = Convert to deck
 card-hand-convert-message = Converted to deck
 
 card-single-flip-text = Flip card
+
+card-single-add-to-deck-text = Add to deck
+card-single-add-to-deck-message = Card added to deck
+
+card-single-add-to-hand-text = Add to hand
+card-single-add-to-hand-message = Card added to hand
+

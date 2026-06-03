@@ -14,5 +14,11 @@ public sealed partial class CardComponent : Component
     [DataField, AutoNetworkedField]
     public bool FaceVisible;
 
+    public LocId AddDeckText = "card-single-add-to-deck-text";
+    public LocId AddDeckMessage = "card-single-add-to-deck-message";
+
+    public LocId AddHandText = "card-single-add-to-hand-text";
+    public LocId AddHandMessage = "card-single-add-to-hand-message";
+
     public LocId AltVerbText = "card-single-flip-text";
 }

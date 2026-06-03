@@ -30,12 +30,21 @@ public sealed partial class CardSystem : EntitySystem
     */
     private void OnStackVerb(Entity<CardStackComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
+        if (!args.CanInteract || !args.CanAccess)
+            return;
 
+        var target = args.Target;
+
+        if (TryComp<CardStackComponent>(target, out var targetStack))
+        {
+
+        }
     }
 
     private void OnStackAltVerb(Entity<CardStackComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
-
+        if (!args.CanInteract || !args.CanAccess)
+            return;
     }
 
     private void OnStackExamine(Entity<CardStackComponent> ent, ref ExaminedEvent args)

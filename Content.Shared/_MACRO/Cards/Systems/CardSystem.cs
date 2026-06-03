@@ -26,12 +26,36 @@ public sealed partial class CardSystem : EntitySystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<CardComponent, GetVerbsEvent<InteractionVerb>>(OnCardVerb);
         SubscribeLocalEvent<CardComponent, GetVerbsEvent<AlternativeVerb>>(OnCardAltVerb);
         SubscribeLocalEvent<CardComponent, ExaminedEvent>(OnCardExamine);
 
         SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<InteractionVerb>>(OnStackVerb);
         SubscribeLocalEvent<CardStackComponent, GetVerbsEvent<AlternativeVerb>>(OnStackAltVerb);
         SubscribeLocalEvent<CardStackComponent, ExaminedEvent>(OnStackExamine);
+    }
+
+    private void OnCardVerb(Entity<CardComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    {
+        if (!args.CanInteract || !args.CanAccess)
+            return;
+
+        var target = args.Target;
+
+        if (!TryComp<CardStackComponent>(target, out var targetStack))
+            return;
+
+        var comp = ent.Comp;
+        var isHand = targetStack.IsHand;
+
+        var verb = new InteractionVerb
+        {
+            Text = isHand ?
+                comp.AddHandText : comp.AddDeckText,
+            Message = isHand ?
+                comp.AddHandMessage : comp.AddDeckMessage,
+            Act = () => AddCardToStack(ent, (target, targetStack))
+        };
     }
 
     private void OnCardAltVerb(Entity<CardComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
@@ -56,5 +80,10 @@ public sealed partial class CardSystem : EntitySystem
     private void FlipCard(Entity<CardComponent> ent)
     {
         ent.Comp.FaceVisible = !ent.Comp.FaceVisible;
+    }
+
+    private void AddCardToStack(Entity<CardComponent> card, Entity<CardStackComponent> stack)
+    {
+
     }
 }
