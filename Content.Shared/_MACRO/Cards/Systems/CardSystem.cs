@@ -35,29 +35,49 @@ public sealed partial class CardSystem : EntitySystem
         SubscribeLocalEvent<CardStackComponent, ExaminedEvent>(OnStackExamine);
     }
 
+    /// <summary>
+    ///     Interaction verb will stack the held card onto a <see
+    ///     cref="CardComponent"> entity or a <see
+    ///     cref="CardStackComponent"/> entity.
+    /// </summary>
     private void OnCardVerb(Entity<CardComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
             return;
 
         var target = args.Target;
-
-        if (!TryComp<CardStackComponent>(target, out var targetStack))
-            return;
-
         var comp = ent.Comp;
-        var isHand = targetStack.IsHand;
+        var verb = new InteractionVerb();
 
-        var verb = new InteractionVerb
+        if (TryComp<CardStackComponent>(target, out var targetStack))
         {
-            Text = isHand ?
-                comp.AddHandText : comp.AddDeckText,
-            Message = isHand ?
-                comp.AddHandMessage : comp.AddDeckMessage,
-            Act = () => AddCardToStack(ent, (target, targetStack))
-        };
+            var isHand = targetStack.IsHand;
+
+            verb.Text = isHand ?
+                comp.AddHandText : comp.AddDeckText;
+            verb.Message = isHand ?
+                comp.AddHandMessage : comp.AddDeckMessage;
+            verb.Act = () => AddCardToStack(ent, (target, targetStack));
+        }
+
+        else if (TryComp<CardComponent>(target, out var targetCard))
+        {
+            verb.Text = comp.AddDeckText;
+            verb.Message = comp.AddDeckMessage;
+            verb.Act = () => AddCardToStack(ent, (target, targetCard));
+        }
+
+        else
+        {
+            return;
+        }
+
+        args.Verbs.Add(verb);
     }
 
+    /// <summary>
+    ///     Alt verb flips this card.
+    /// </summary>
     private void OnCardAltVerb(Entity<CardComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
     {
         if (!args.CanInteract || !args.CanAccess)
@@ -83,6 +103,11 @@ public sealed partial class CardSystem : EntitySystem
     }
 
     private void AddCardToStack(Entity<CardComponent> card, Entity<CardStackComponent> stack)
+    {
+
+    }
+
+    private void AddCardToStack(Entity<CardComponent> card, Entity<CardComponent> stack)
     {
 
     }

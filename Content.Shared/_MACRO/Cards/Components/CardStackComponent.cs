@@ -27,12 +27,6 @@ public sealed partial class CardStackComponent : Component
     [DataField, AutoNetworkedField]
     public Container Cards = default;
 
-    /// <summary>
-    ///     Used to define in YML the cards this should start stacked with.
-    /// </summary>
-    [DataField]
-    public EntProtoId<CardDeckComponent>? StartingDeck;
-
     public LocId HandOpenText = "card-hand-open-text";
 
     public LocId HandShuffleText = "card-hand-shuffle-text";
